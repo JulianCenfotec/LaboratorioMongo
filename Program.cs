@@ -13,6 +13,8 @@ builder.Services.AddSingleton<CarreraService>();
 builder.Services.AddSingleton<GrupoService>();
 builder.Services.AddSingleton<TeacherService>();
 builder.Services.AddSingleton<UserService>();
+builder.Services.AddSingleton<CursoService>();
+builder.Services.AddSingleton<Cicloervice>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
