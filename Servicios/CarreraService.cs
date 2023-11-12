@@ -1,7 +1,6 @@
 ﻿using LaboratorioMongo.Modelos;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using static LaboratorioMongo.Modelos.UniversidadDatabaseSettings;
 
 namespace LaboratorioMongo.Servicios
 {
@@ -9,17 +8,13 @@ namespace LaboratorioMongo.Servicios
     {
         private readonly IMongoCollection<Carrera> _carreraCollection;
 
-        public CarreraService(
-            IOptions<UniversidadDatabaseSettings> universidadDatabaseSettings)
+        public CarreraService()
         {
-            var mongoClient = new MongoClient(
-                universidadDatabaseSettings.Value.ConnectionString);
+            var settings = DatabaseSettings.Instance;
 
-            var mongoDatabase = mongoClient.GetDatabase(
-                universidadDatabaseSettings.Value.DatabaseName);
-
-            _carreraCollection = mongoDatabase.GetCollection<Carrera>(
-                universidadDatabaseSettings.Value.CarreraCollectionName);
+            var client = new MongoClient(settings.ConnectionString);
+            var database = client.GetDatabase(settings.DatabaseName);
+            _carreraCollection = database.GetCollection<Carrera>("Carrera");
         }
 
         public async Task<List<Carrera>> GetAsync() =>

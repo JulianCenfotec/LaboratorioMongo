@@ -10,11 +10,13 @@ namespace LaboratorioMongo.Servicios
     {
         private readonly IMongoCollection<Ciclo> _cicloCollection;
 
-        public CicloService(IOptions<UniversidadDatabaseSettings> universidadDatabaseSettings)
+        public CicloService()
         {
-            var mongoClient = new MongoClient(universidadDatabaseSettings.Value.ConnectionString);
-            var mongoDatabase = mongoClient.GetDatabase(universidadDatabaseSettings.Value.DatabaseName);
-            _cicloCollection = mongoDatabase.GetCollection<Ciclo>(universidadDatabaseSettings.Value.CollectionName);
+            var settings = DatabaseSettings.Instance;
+
+            var client = new MongoClient(settings.ConnectionString);
+            var database = client.GetDatabase(settings.DatabaseName);
+            _cicloCollection = database.GetCollection<Ciclo>("Ciclo"); ;
         }
 
         public async Task<List<Ciclo>> GetAsync() =>

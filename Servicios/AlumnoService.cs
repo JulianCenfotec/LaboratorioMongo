@@ -8,17 +8,14 @@ namespace LaboratorioMongo.Servicios
     {
         private readonly IMongoCollection<Alumno> _alumnoCollection;
 
-        public AlumnoService(
-            IOptions<UniversidadDatabaseSettings> universidadDatabaseSettings)
+        public AlumnoService()
         {
-            var mongoClient = new MongoClient(
-                universidadDatabaseSettings.Value.ConnectionString);
+            var settings = DatabaseSettings.Instance;
 
-            var mongoDatabase = mongoClient.GetDatabase(
-                universidadDatabaseSettings.Value.DatabaseName);
+            var client = new MongoClient(settings.ConnectionString);
+            var database = client.GetDatabase(settings.DatabaseName);
 
-            _alumnoCollection = mongoDatabase.GetCollection<Alumno>(
-                universidadDatabaseSettings.Value.AlumnoCollectionName);
+            _alumnoCollection = database.GetCollection<Alumno>("Alumno");
         }
 
         public async Task<List<Alumno>> GetAsync() =>

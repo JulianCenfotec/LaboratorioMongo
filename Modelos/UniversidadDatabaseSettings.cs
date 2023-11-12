@@ -4,27 +4,26 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 
 namespace LaboratorioMongo.Modelos
+
 {
-    public sealed class MongoDBInstance
+    using MongoDB.Driver;
+
+    public sealed class DatabaseSettings
     {
-        //volatile: ensure that assignment to the instance variable
-        //is completed before the instance variable can be accessed
-        private static volatile MongoDBInstance instance;
-        private static object syncLock = new Object();
+        private static readonly object syncLock = new object();
+        private static DatabaseSettings instance;
 
-        const string connectionString = "mongodb://localhost";
-        private static MongoDatabase db = null;
+        public string ConnectionString { get; private set; }
+        public string DatabaseName { get; private set; }
 
-        private MongoDBInstance()
+        private DatabaseSettings()
         {
-            var client = new MongoClient();
-            MongoServer server = client.GetServer();
-            server.Connect();
-
-            db = server.GetDatabase("SchoolDB");
+            // Assign your actual MongoDB connection string and database name here
+            ConnectionString = "mongodb+srv://jose:Cenfotec123@cluster0.vp492.mongodb.net/";
+            DatabaseName = "Universidad";
         }
 
-        public static MongoDatabase GetMongoDatabase
+        public static DatabaseSettings Instance
         {
             get
             {
@@ -33,11 +32,11 @@ namespace LaboratorioMongo.Modelos
                     lock (syncLock)
                     {
                         if (instance == null)
-                            instance = new MongoDBInstance();
+                            instance = new DatabaseSettings();
                     }
                 }
 
-                return db;
+                return instance;
             }
         }
     }

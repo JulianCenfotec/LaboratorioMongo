@@ -10,17 +10,13 @@ namespace LaboratorioMongo.Servicios
     {
         private readonly IMongoCollection<Curso> _cursoCollection;
 
-        public CursoService(
-            IOptions<UniversidadDatabaseSettings> universidadDatabaseSettings)
+        public CursoService()
         {
-            var mongoClient = new MongoClient(
-                universidadDatabaseSettings.Value.ConnectionString);
+            var settings = DatabaseSettings.Instance;
 
-            var mongoDatabase = mongoClient.GetDatabase(
-                universidadDatabaseSettings.Value.DatabaseName);
-
-            _cursoCollection = mongoDatabase.GetCollection<Curso>(
-                universidadDatabaseSettings.Value.CollectionName);
+            var client = new MongoClient(settings.ConnectionString);
+            var database = client.GetDatabase(settings.DatabaseName);
+            _cursoCollection = database.GetCollection<Curso>("Curso");
         }
 
         public async Task<List<Curso>> GetAsync() =>

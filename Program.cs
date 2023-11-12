@@ -1,11 +1,10 @@
 using LaboratorioMongo.Modelos;
 using LaboratorioMongo.Servicios;
-using static LaboratorioMongo.Modelos.UniversidadDatabaseSettings;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.Configure<UniversidadDatabaseSettings>(
+builder.Services.Configure<DatabaseSettings>(
     builder.Configuration.GetSection("UniversidadDatabase"));
 
 builder.Services.AddSingleton<AlumnoService>();
