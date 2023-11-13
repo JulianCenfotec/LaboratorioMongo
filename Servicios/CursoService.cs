@@ -24,10 +24,11 @@ namespace LaboratorioMongo.Servicios
 
         public async Task<Curso?> GetAsync(string Codigo) =>
             await _cursoCollection.Find(x => x.Codigo == Codigo).FirstOrDefaultAsync();
-
-        public async Task CreateAsync(Curso newCurso) =>
+        public async Task CreateAsync(Curso newCurso)
+        {
             await _cursoCollection.InsertOneAsync(newCurso);
-
+            newCurso.NotificarObservadores(newCurso.Nombre);
+        }
         public async Task UpdateAsync(string id, Curso updatedCurso) =>
             await _cursoCollection.ReplaceOneAsync(x => x.Codigo == id, updatedCurso);
 
