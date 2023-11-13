@@ -2,7 +2,7 @@
 
 namespace LaboratorioMongo.Modelos
 {
-    public class Curso
+    public class Curso : Observador
     {
         [BsonElement("Codigo")]
         public string Codigo { get; set; } = null!;
@@ -12,5 +12,11 @@ namespace LaboratorioMongo.Modelos
 
         [BsonElement("Ciclo")]
         public int Ciclo { get; set; }
+
+        public void AgregarAlumno(Alumno alumno)
+        {
+            this.Subscribe(alumno);
+            this.NotificarObservadores(this.Nombre);
+        }
     }
 }
