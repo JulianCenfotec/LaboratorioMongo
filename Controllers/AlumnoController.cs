@@ -1,4 +1,5 @@
-﻿using LaboratorioMongo.Modelos;
+﻿using LaboratorioMongo.Fabrica;
+using LaboratorioMongo.Modelos;
 using LaboratorioMongo.Servicios;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +7,9 @@ namespace LaboratorioMongo.Controllers
 {
     public class AlumnoController : Controller
     {
-        private readonly AlumnoService _alumnoService;
+        private readonly IPersonaService<Alumno> _alumnoService;
 
-        public AlumnoController(AlumnoService alumnoService)
+        public AlumnoController(IPersonaService<Alumno> alumnoService)
         {
             _alumnoService = alumnoService;
         }

@@ -1,10 +1,11 @@
-﻿using LaboratorioMongo.Modelos;
+﻿using LaboratorioMongo.Fabrica;
+using LaboratorioMongo.Modelos;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
 namespace LaboratorioMongo.Servicios
 {
-    public class TeacherService
+    public class TeacherService : IPersonaService<Teacher>
     {
         private readonly IMongoCollection<Teacher> _teachersCollection;
 
