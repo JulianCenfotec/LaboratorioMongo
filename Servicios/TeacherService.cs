@@ -1,20 +1,25 @@
-﻿using LaboratorioMongo.Modelos;
+﻿using LaboratorioMongo.Fabrica;
+using LaboratorioMongo.Modelos;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
 namespace LaboratorioMongo.Servicios
 {
-    public class TeacherService
+    public class TeacherService : IPersonaService<Teacher>
     {
         private readonly IMongoCollection<Teacher> _teachersCollection;
 
-        public TeacherService()
+        public TeacherService(
+            IOptions<UniversidadDatabaseSettings> universidadDatabaseSettings)
         {
-            var settings = DatabaseSettings.Instance;
+            var mongoClient = new MongoClient(
+                universidadDatabaseSettings.Value.ConnectionString);
 
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
-            _teachersCollection = database.GetCollection<Teacher>("Profesor");
+            var mongoDatabase = mongoClient.GetDatabase(
+                universidadDatabaseSettings.Value.DatabaseName);
+
+            _teachersCollection = mongoDatabase.GetCollection<Teacher>(
+                universidadDatabaseSettings.Value.CollectionName);
         }
 
         public async Task<List<Teacher>> GetAsync() =>
