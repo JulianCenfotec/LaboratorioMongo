@@ -6,7 +6,7 @@ namespace LaboratorioMongo.Servicios
 {
     public class CarreraService : 
     {
-        private readonly IMongoCollection<Carrera> _carreraCollection;
+        private readonly IMongoCollection<Empleados> _carreraCollection;
 
         public CarreraService()
         {
@@ -14,19 +14,19 @@ namespace LaboratorioMongo.Servicios
 
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
-            _carreraCollection = database.GetCollection<Carrera>("Carrera");
+            _carreraCollection = database.GetCollection<Empleados>("Carrera");
         }
 
-        public async Task<List<Carrera>> GetAsync() =>
+        public async Task<List<Empleados>> GetAsync() =>
             await _carreraCollection.Find(_ => true).ToListAsync();
 
-        public async Task<Carrera?> GetAsync(string id) =>
+        public async Task<Empleados?> GetAsync(string id) =>
             await _carreraCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
-        public async Task CreateAsync(Carrera newCarrera) =>
+        public async Task CreateAsync(Empleados newCarrera) =>
             await _carreraCollection.InsertOneAsync(newCarrera);
 
-        public async Task UpdateAsync(string id, Carrera updatedCarrera) =>
+        public async Task UpdateAsync(string id, Empleados updatedCarrera) =>
             await _carreraCollection.ReplaceOneAsync(x => x.Id == id, updatedCarrera);
 
         public async Task RemoveAsync(string id) =>

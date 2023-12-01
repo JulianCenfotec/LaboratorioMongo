@@ -6,7 +6,7 @@ namespace LaboratorioMongo.Servicios
 {
     public class AlumnoService
     {
-        private readonly IMongoCollection<Alumno> _alumnoCollection;
+        private readonly IMongoCollection<Cliente> _alumnoCollection;
 
         public AlumnoService()
         {
@@ -15,19 +15,19 @@ namespace LaboratorioMongo.Servicios
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
 
-            _alumnoCollection = database.GetCollection<Alumno>("Alumno");
+            _alumnoCollection = database.GetCollection<Cliente>("Alumno");
         }
 
-        public async Task<List<Alumno>> GetAsync() =>
+        public async Task<List<Cliente>> GetAsync() =>
             await _alumnoCollection.Find(_ => true).ToListAsync();
 
-        public async Task<Alumno?> GetAsync(string id) =>
+        public async Task<Cliente?> GetAsync(string id) =>
             await _alumnoCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
-        public async Task CreateAsync(Alumno newAlumno) =>
+        public async Task CreateAsync(Cliente newAlumno) =>
             await _alumnoCollection.InsertOneAsync(newAlumno);
 
-        public async Task UpdateAsync(string id, Alumno updatedAlumno) =>
+        public async Task UpdateAsync(string id, Cliente updatedAlumno) =>
             await _alumnoCollection.ReplaceOneAsync(x => x.Id == id, updatedAlumno);
 
         public async Task RemoveAsync(string id) =>

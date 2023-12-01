@@ -9,19 +9,19 @@ namespace LaboratorioMongo.Controllers
     [Route("api/alumnos")]
     public class AlumnoController : Controller
     {
-        private readonly IPersonaService<Alumno> _alumnoService;
+        private readonly IPersonaService<Cliente> _alumnoService;
 
-        public AlumnoController(IPersonaService<Alumno> alumnoService)
+        public AlumnoController(IPersonaService<Cliente> alumnoService)
         {
             _alumnoService = alumnoService;
         }
 
         [HttpGet]
-        public async Task<List<Alumno>> Get() =>
+        public async Task<List<Cliente>> Get() =>
             await _alumnoService.GetAsync();
 
         [HttpGet("{id:length(24)}")]
-        public async Task<ActionResult<Alumno>> Get(string id)
+        public async Task<ActionResult<Cliente>> Get(string id)
         {
             var user = await _alumnoService.GetAsync(id);
 
@@ -34,7 +34,7 @@ namespace LaboratorioMongo.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Alumno newAlumno)
+        public async Task<IActionResult> Post(Cliente newAlumno)
         {
             await _alumnoService.CreateAsync(newAlumno);
 
@@ -42,7 +42,7 @@ namespace LaboratorioMongo.Controllers
         }
 
         [HttpPut("{id:length(24)}")]
-        public async Task<IActionResult> Update(string id, Alumno updatedAlumno)
+        public async Task<IActionResult> Update(string id, Cliente updatedAlumno)
         {
             var user = await _alumnoService.GetAsync(id);
 

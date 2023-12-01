@@ -5,7 +5,7 @@ using System;
 
 namespace LaboratorioMongo.Modelos
 {
-    public class Ciclo
+    public class Facturacion
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

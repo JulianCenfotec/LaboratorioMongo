@@ -13,7 +13,7 @@ namespace LaboratorioMongo.Modelos
         [BsonElement("Ciclo")]
         public int Ciclo { get; set; }
 
-        public void AgregarAlumno(Alumno alumno)
+        public void AgregarAlumno(Cliente alumno)
         {
             this.Subscribe(alumno);
             this.NotificarObservadores(this.Nombre);

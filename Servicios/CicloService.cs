@@ -8,7 +8,7 @@ namespace LaboratorioMongo.Servicios
 {
     public class CicloService
     {
-        private readonly IMongoCollection<Ciclo> _cicloCollection;
+        private readonly IMongoCollection<Facturacion> _cicloCollection;
 
         public CicloService()
         {
@@ -16,19 +16,19 @@ namespace LaboratorioMongo.Servicios
 
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
-            _cicloCollection = database.GetCollection<Ciclo>("Ciclo"); ;
+            _cicloCollection = database.GetCollection<Facturacion>("Ciclo"); ;
         }
 
-        public async Task<List<Ciclo>> GetAsync() =>
+        public async Task<List<Facturacion>> GetAsync() =>
             await _cicloCollection.Find(_ => true).ToListAsync();
 
-        public async Task<Ciclo?> GetAsync(string id) =>
+        public async Task<Facturacion?> GetAsync(string id) =>
             await _cicloCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
-        public async Task CreateAsync(Ciclo newCiclo) =>
+        public async Task CreateAsync(Facturacion newCiclo) =>
             await _cicloCollection.InsertOneAsync(newCiclo);
 
-        public async Task UpdateAsync(string id, Ciclo updatedCiclo) =>
+        public async Task UpdateAsync(string id, Facturacion updatedCiclo) =>
             await _cicloCollection.ReplaceOneAsync(x => x.Id == id, updatedCiclo);
 
         public async Task RemoveAsync(string id) =>

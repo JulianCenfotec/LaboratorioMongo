@@ -20,14 +20,14 @@ namespace LaboratorioMongo.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Ciclo>>> Get()
+        public async Task<ActionResult<List<Facturacion>>> Get()
         {
             var ciclos = await _cicloService.GetAsync();
             return Ok(ciclos);
         }
 
         [HttpGet("{id:length(24)}")]
-        public async Task<ActionResult<Ciclo>> Get(string id)
+        public async Task<ActionResult<Facturacion>> Get(string id)
         {
             var ciclo = await _cicloService.GetAsync(id);
 
@@ -40,7 +40,7 @@ namespace LaboratorioMongo.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Ciclo newCiclo)
+        public async Task<IActionResult> Post(Facturacion newCiclo)
         {
             await _cicloService.CreateAsync(newCiclo);
 
@@ -48,7 +48,7 @@ namespace LaboratorioMongo.Controllers
         }
 
         [HttpPut("{id:length(24)}")]
-        public async Task<IActionResult> Update(string id, Ciclo updatedCiclo)
+        public async Task<IActionResult> Update(string id, Facturacion updatedCiclo)
         {
             var ciclo = await _cicloService.GetAsync(id);
 
