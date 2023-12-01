@@ -16,11 +16,11 @@ namespace LaboratorioMongo.Controllers
         }
 
         [HttpGet]
-        public async Task<List<Empleados>> Get() =>
+        public async Task<List<Carrera>> Get() =>
             await _carreraService.GetAsync();
 
         [HttpGet("{id:length(24)}")]
-        public async Task<ActionResult<Empleados>> Get(string id)
+        public async Task<ActionResult<Carrera>> Get(string id)
         {
             var carrera = await _carreraService.GetAsync(id);
 
@@ -33,7 +33,7 @@ namespace LaboratorioMongo.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Empleados newCarrera)
+        public async Task<IActionResult> Post(Carrera newCarrera)
         {
             await _carreraService.CreateAsync(newCarrera);
 
@@ -41,7 +41,7 @@ namespace LaboratorioMongo.Controllers
         }
 
         [HttpPut("{id:length(24)}")]
-        public async Task<IActionResult> Update(string id, Empleados updatedCarrera)
+        public async Task<IActionResult> Update(string id, Carrera updatedCarrera)
         {
             var carrera = await _carreraService.GetAsync(id);
 

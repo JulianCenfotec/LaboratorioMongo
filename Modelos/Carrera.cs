@@ -3,7 +3,7 @@ using MongoDB.Bson;
 
 namespace LaboratorioMongo.Modelos
 {
-    public class Empleados
+    public class Carrera
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

@@ -25,7 +25,7 @@ namespace LaboratorioMongo.Modelos
         public Teacher Profesor { get; set; }
 
         [BsonElement("EstudiantesMatriculados")]
-        public List<Cliente> EstudiantesMatriculados { get; set; }
+        public List<Alumno> EstudiantesMatriculados { get; set; }
 
         [BsonElement("notas")]
         public List<Nota> Notas { get; set; }
