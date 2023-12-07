@@ -9,18 +9,23 @@ namespace LaboratorioMongo.Controllers
     [Route("api/alumnos")]
     public class AlumnoController : Controller
     {
-        private readonly IPersonaService<Alumno> _alumnoService;
+        private readonly AlumnoService _alumnoService;
 
-        public AlumnoController(IPersonaService<Alumno> alumnoService)
+        public AlumnoController(AlumnoService alumnoService)
         {
             _alumnoService = alumnoService;
         }
 
         [HttpGet]
-        public async Task<List<Alumno>> Get() =>
-            await _alumnoService.GetAsync();
+        [Route("all")]
+        public async Task<List<Alumno>> Get() {
+           var alumnos = await _alumnoService.GetAsync();
+            return alumnos;
+        }
 
-        [HttpGet("{id:length(24)}")]
+
+        [HttpGet]
+        [Route("getbyid")]
         public async Task<ActionResult<Alumno>> Get(string id)
         {
             var user = await _alumnoService.GetAsync(id);
@@ -34,6 +39,7 @@ namespace LaboratorioMongo.Controllers
         }
 
         [HttpPost]
+        [Route("create")]
         public async Task<IActionResult> Post(Alumno newAlumno)
         {
             await _alumnoService.CreateAsync(newAlumno);
@@ -41,7 +47,8 @@ namespace LaboratorioMongo.Controllers
             return CreatedAtAction(nameof(Get), new { id = newAlumno.Id }, newAlumno);
         }
 
-        [HttpPut("{id:length(24)}")]
+        [HttpPut]
+        [Route("update")]
         public async Task<IActionResult> Update(string id, Alumno updatedAlumno)
         {
             var user = await _alumnoService.GetAsync(id);
@@ -58,7 +65,8 @@ namespace LaboratorioMongo.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id:length(24)}")]
+        [HttpDelete]
+        [Route("delete")]
         public async Task<IActionResult> Delete(string id)
         {
             var user = await _alumnoService.GetAsync(id);

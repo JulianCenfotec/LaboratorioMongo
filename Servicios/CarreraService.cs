@@ -4,7 +4,7 @@ using MongoDB.Driver;
 
 namespace LaboratorioMongo.Servicios
 {
-    public class CarreraService : 
+    public class CarreraService 
     {
         private readonly IMongoCollection<Carrera> _carreraCollection;
 

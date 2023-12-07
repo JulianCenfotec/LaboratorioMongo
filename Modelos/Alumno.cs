@@ -3,7 +3,8 @@ using MongoDB.Bson;
 
 namespace LaboratorioMongo.Modelos
 {
-    public class Alumno : IObserver<String>
+    [BsonIgnoreExtraElements]
+    public class Alumno
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -25,21 +26,6 @@ namespace LaboratorioMongo.Modelos
         public string CarreraInscrita { get; set; }
 
 
-        public void OnCompleted()
-        {
-            
-        }
-
-        public void OnError(Exception error)
-        {
-            
-        }
-
-        public void OnNext(string value)
-        {
-            Console.WriteLine($"Estimado {this.Nombre}, se ha agregado el curso {value}.");
-          
-        }
     }
 
 }

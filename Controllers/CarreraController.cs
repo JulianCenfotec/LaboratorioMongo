@@ -16,10 +16,12 @@ namespace LaboratorioMongo.Controllers
         }
 
         [HttpGet]
+        [Route("all")]
         public async Task<List<Carrera>> Get() =>
             await _carreraService.GetAsync();
 
-        [HttpGet("{id:length(24)}")]
+        [HttpGet]
+        [Route("getbyid")]
         public async Task<ActionResult<Carrera>> Get(string id)
         {
             var carrera = await _carreraService.GetAsync(id);
@@ -33,6 +35,7 @@ namespace LaboratorioMongo.Controllers
         }
 
         [HttpPost]
+        [Route("create")]
         public async Task<IActionResult> Post(Carrera newCarrera)
         {
             await _carreraService.CreateAsync(newCarrera);
@@ -40,7 +43,8 @@ namespace LaboratorioMongo.Controllers
             return CreatedAtAction(nameof(Get), new { id = newCarrera.Id }, newCarrera);
         }
 
-        [HttpPut("{id:length(24)}")]
+        [HttpPut]
+        [Route("update")]
         public async Task<IActionResult> Update(string id, Carrera updatedCarrera)
         {
             var carrera = await _carreraService.GetAsync(id);
@@ -57,7 +61,8 @@ namespace LaboratorioMongo.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id:length(24)}")]
+        [HttpDelete]
+        [Route("delete")]
         public async Task<IActionResult> Delete(string id)
         {
             var carrera = await _carreraService.GetAsync(id);
